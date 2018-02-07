@@ -12,12 +12,27 @@ namespace thomson
 		fast_pe_calculation = true;
 		display_interval_ = 50;
 		base_lr_ = (Dtype)1.0;
-		//device_ = -1;
 	}
 
 	template <typename Dtype>
 	void solver<Dtype>::Solve_Thomson_Problem(plasma<Dtype>& pls)
 	{
+		int num_thread;
+#ifdef _OPENMP
+		num_thread = omp_get_num_procs();
+		omp_set_num_threads(num_thread);
+		LOG(INFO) << "There are " << num_thread << " threads, " << omp_get_num_procs() << " processors.";
+#else
+		num_thread = 1;
+#endif
+		LOG(INFO) << "Solving start...";
+		LOG(INFO) << "Max iter: "<< max_iter_;
+		LOG(INFO) << "Min Potential Energy Error: "<< min_pe_error_;
+		LOG(INFO) << "Learning Rate Policy(automatic scaled to accelerate solving or not): "<< (lr_policy_?"True":"False");
+		LOG(INFO) << "Fast Plasma Potential Energy Calculation(only works with OpenMP): "<< (fast_pe_calculation ? "True" : "False");
+		LOG(INFO) << "Iters Interval for Displaying: "<< display_interval_;
+		LOG(INFO) << "Base Learning Rate: "<< base_lr_;
+		//
 		int counter = 0;
 		Dtype lr = base_lr_;
 		while (counter < max_iter_)

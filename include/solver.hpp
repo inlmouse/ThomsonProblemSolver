@@ -8,10 +8,10 @@
     access_permission:\
         type name;\
     public:\
-    inline void set##name(type v) {\
+    inline void set_##name(type v) {\
         name = v;\
     }\
-    inline type get##name() {\
+    inline type get_##name() {\
         return name;\
     }\
 
@@ -26,7 +26,6 @@ namespace thomson
 		PropertyBuilderByName(bool, fast_pe_calculation, private);
 		PropertyBuilderByName(int, display_interval_, private);
 		PropertyBuilderByName(Dtype, base_lr_, private);
-
 	public: 
 		solver();
 
