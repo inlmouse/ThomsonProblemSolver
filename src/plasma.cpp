@@ -1,6 +1,5 @@
 #include "../include/plasma.hpp"
 #include <iostream>
-#include <iomanip>
 #include <cblas.h>
 
 namespace thomson
@@ -144,55 +143,6 @@ namespace thomson
 		return cblas_ddot(electorn_num_ - 1, pairwise_pe_sum_->cpu_data(), 1, multiplier_->cpu_data(), 1);
 	}
 #endif
-
-	template <typename Dtype>
-	void plasma<Dtype>::StartingOptimization(bool fast_pe_calculation)
-	{
-		int counter = 0;
-		std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(6);
-		Dtype lr = (Dtype)1.0;
-		while (true)
-		{
-			CalculateAllForce();
-			UpdateAllPosition(lr);
-			Dtype temp_E;
-#ifdef _OPENMP
-			if (fast_pe_calculation)
-			{
-				temp_E = CalculatePotentialEnergy_Parallel();
-			}
-			else
-			{
-				temp_E = CalculatePotentialEnergy();
-			}
-#else
-			temp_E = CalculatePotentialEnergy();
-#endif
-			Dtype error = abs(temp_E - pe_);
-			Dtype log_error = log(error);
-			if (log_error<(Dtype)0)
-			{
-				lr = -1 * log_error;
-			}
-			if (counter % 10 == 0)
-			{
-				std::cout << "Iter " << counter << ": PotentialEnergy = " << temp_E << "; " << std::endl;
-				std::cout << "Learning rate: " << lr << std::endl;
-				std::cout << "Log Error: " << error << std::endl;
-			}
-			
-			if (error < std::numeric_limits<Dtype>::min())
-			{
-				std::cout << "Iter " << counter << " finished! Final PotentialEnergy = " << std::setprecision(6) << temp_E << ";" << std::endl;
-				break;
-			}
-			else
-			{
-				pe_ = temp_E;
-			}
-			counter++;
-		}
-	}
 
 	//private funstions:
 	template <typename Dtype>

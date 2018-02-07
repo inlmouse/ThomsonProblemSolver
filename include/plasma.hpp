@@ -44,11 +44,19 @@ namespace thomson
 
 		Dtype CalculatePotentialEnergy();
 
+		Dtype GetPE() const
+		{
+			return pe_;
+		}
+
+		void SetPE(Dtype pe)
+		{
+			pe_ = pe;
+		}
+
 #ifdef _OPENMP
 		Dtype CalculatePotentialEnergy_Parallel();
 #endif
-
-		void StartingOptimization(bool fast_pe_calculation = false);
 
 	private:
 		void calculate_all_force_cpu();

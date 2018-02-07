@@ -82,6 +82,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_MBCS;GLOG_NO_ABBREVIATED_SEVERITIES;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(CUDA_PATH)\lib\x64\*.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -108,6 +109,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <OpenMPSupport>true</OpenMPSupport>
+      <PreprocessorDefinitions>_MBCS;GLOG_NO_ABBREVIATED_SEVERITIES;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -119,14 +121,17 @@
     <ClInclude Include="..\include\accelerator.hpp" />
     <ClInclude Include="..\include\electron.hpp" />
     <ClInclude Include="..\include\plasma.hpp" />
+    <ClInclude Include="..\include\solver.hpp" />
     <ClInclude Include="..\include\syncedmem.hpp" />
     <ClInclude Include="..\include\tensor.hpp" />
+    <ClInclude Include="..\include\timer.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\accelerator.cpp" />
     <ClCompile Include="..\src\electron.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\plasma.cpp" />
+    <ClCompile Include="..\src\solver.cpp" />
     <ClCompile Include="..\src\syncedmem.cpp" />
     <ClCompile Include="..\src\tensor.cpp" />
   </ItemGroup>
