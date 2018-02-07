@@ -25,7 +25,7 @@ This solver is very easy to use.
 
 
 ## Error Analysis
-### 2/3 Dimension Case
+### 2 and 3 Dimension Case
 
 We can check the results with the numerical solution(in 3 dimension) of the wiki page that we list above.
 
@@ -41,10 +41,12 @@ We can check the results with the numerical solution(in 3 dimension) of the wiki
 
 We need present a proposition:
 
-*There are 2 randomly picked points on the $n(n\geq 2)$ dimension hyper-sphere of radius $R$. Let $L$ designate the Euclidean distance between these two points. The nature of the probability distribution of $L$ can be described as below:*
+**There are 2 randomly picked points on the $n(n\geq 2)$ dimension hyper-sphere of radius $R$. Let $L$ designate the Euclidean distance between these two points. The nature of the probability distribution of $L$ can be described as below:**
 
 $$\rho_{L,n}(L)=\frac{L^{n-2}}{C(n)R^{n-1}}[1-(\frac{L}{2R})^2]^{\frac{n-3}{2}}$$
-*The coefficients $C(n)$ are given as follows:*
+
+**The coefficients $C(n)$ are given as follows:**
+
 $$C(n)=\sqrt{\pi}\frac{\Gamma(\frac{n-1}{2})}{\Gamma(\frac{n}{2})}$$
 
 
