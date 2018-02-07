@@ -106,5 +106,8 @@ namespace thomson
 		normalize2shpere_gpu(cublas_handle);
 		CUDA_CHECK(cudaMemset(combine_force_->mutable_gpu_data(), 0, sizeof(double) * dimension_));
 	}
+
+	template class electron<float>;
+	template class electron<double>;
 #endif
 }
