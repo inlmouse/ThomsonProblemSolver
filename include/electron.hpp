@@ -26,10 +26,10 @@ namespace thomson
 		void updateposition_cpu(Dtype lr);
 #ifdef USE_CUDA
 		void normalize2shpere_gpu(cublasHandle_t cublas_handle);
-		/*void combineforce2zero_gpu(cublasHandle_t cublas_handle);
+		void combineforce2zero_gpu();
 		void add1componentforce_gpu(cublasHandle_t cublas_handle, const Dtype* other_position);
 		Dtype calculatedistance_gpu(cublasHandle_t cublas_handle, const Dtype* other_position);
-		void updateposition_gpu(cublasHandle_t cublas_handle, Dtype lr);*/
+		void updateposition_gpu(cublasHandle_t cublas_handle, Dtype lr);
 #endif
 
 		const tensor<Dtype>* getcurrentposition();
