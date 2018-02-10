@@ -1,4 +1,5 @@
 #include "../include/electron.hpp"
+#include <iostream>
 
 namespace thomson
 {
@@ -31,7 +32,7 @@ namespace thomson
 	void electron<float>::add1componentforce_gpu(cublasHandle_t cublas_handle, const float* other_position)
 	{
 		tensor<float>* f_i = new tensor<float>(std::vector<int>{dimension_}, device_);
-		CUDA_CHECK(cudaMemcpy(f_i->mutable_gpu_data(), other_position, dimension_ * sizeof(float), cudaMemcpyDefault));
+		CUDA_CHECK(cudaMemcpy(f_i->mutable_gpu_data(), other_position, dimension_ * sizeof(float), cudaMemcpyDeviceToDevice));
 		float inverser = -1.0;
 		CUBLAS_CHECK(cublasSscal(cublas_handle, dimension_, &inverser, f_i->mutable_gpu_data(), 1));
 		float alpha = 1.0;
@@ -47,9 +48,16 @@ namespace thomson
 	template<>
 	void electron<double>::add1componentforce_gpu(cublasHandle_t cublas_handle, const double* other_position)
 	{
-		tensor<double>* f_i = new tensor<double>(std::vector<int>{dimension_}, device_);
-		CUDA_CHECK(cudaMemcpy(f_i->mutable_gpu_data(), other_position, dimension_ * sizeof(double), cudaMemcpyDefault));
+		double* temp = new double[3];
+		tensor<double>* f_i = new tensor<double>(std::vector<int>{dimension_}, device_); 
+		CUDA_CHECK(cudaMemcpy(f_i->mutable_gpu_data(), other_position, dimension_ * sizeof(double), cudaMemcpyDeviceToDevice));
 		double inverser = -1.0;
+		cublasGetVector(dimension_, sizeof(double), f_i->gpu_data(), 1, temp, 1);
+		for (int i = 0; i < dimension_; i++)
+		{
+			std::cout << temp[i] << " ";
+		}
+		std::cout << std::endl;
 		CUBLAS_CHECK(cublasDscal(cublas_handle, dimension_, &inverser, f_i->mutable_gpu_data(), 1));
 		double alpha = 1.0;
 		CUBLAS_CHECK(cublasDaxpy(cublas_handle, dimension_, &alpha, position_->gpu_data(), 1, f_i->mutable_gpu_data(), 1));

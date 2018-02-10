@@ -29,15 +29,16 @@ This solver is very easy to use.
 
 We can check the results with the numerical solution(in 3 dimension) of the wiki page that we list above.
 
-| Number of Electrons | Theoretical Potential Energy |   Solved Potential Energy   |
-| :-------: | :-------:| :------: |
-| 2 | 0.500000 | 0.500000 |
-| 10 | 32.716949 | 32.717061 |
-| 100 | 4448.350634 | 4448.415575 |
-| 470| 104822.886324 | 104823.880431 |
+| Number of Electrons | Theoretical Potential Energy |   Solved Potential Energy   | Number of Iterations |
+| :-------: | :-------:| :------: | :------: |
+| 2 | 0.500000 | 0.500000 | 14 |
+| 10 | 32.716949 | 32.717061 | 918 |
+| 100 | 4448.350634 | 4448.415575 | 4586 |
+| 470| 104822.886324 | 104823.779129 | 32930 |
+| 972| 455651.080935 | 455653.838019 | 46433 |
 
 
-### High Dimension
+### High Dimension Case
 
 We need present a proposition:
 
