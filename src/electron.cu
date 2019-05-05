@@ -53,11 +53,6 @@ namespace thomson
 		CUDA_CHECK(cudaMemcpy(f_i->mutable_gpu_data(), other_position, dimension_ * sizeof(double), cudaMemcpyDeviceToDevice));
 		double inverser = -1.0;
 		cublasGetVector(dimension_, sizeof(double), f_i->gpu_data(), 1, temp, 1);
-		for (int i = 0; i < dimension_; i++)
-		{
-			std::cout << temp[i] << " ";
-		}
-		std::cout << std::endl;
 		CUBLAS_CHECK(cublasDscal(cublas_handle, dimension_, &inverser, f_i->mutable_gpu_data(), 1));
 		double alpha = 1.0;
 		CUBLAS_CHECK(cublasDaxpy(cublas_handle, dimension_, &alpha, position_->gpu_data(), 1, f_i->mutable_gpu_data(), 1));

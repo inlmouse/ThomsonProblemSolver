@@ -1,7 +1,9 @@
 #pragma once
 #ifndef	_ELECTORN_HPP_
 #define _ELECTORN_HPP_
-#include "tensor.hpp"
+#include <glasssix\tensor.hpp>
+
+using namespace glasssix::excalibur;
 
 namespace thomson
 {

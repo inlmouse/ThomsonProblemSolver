@@ -18,22 +18,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\accelerator.hpp">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\syncedmem.hpp">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\tensor.hpp">
-      <Filter>include</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\electron.hpp">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\plasma.hpp">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\timer.hpp">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\solver.hpp">
@@ -41,18 +29,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\accelerator.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\syncedmem.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\tensor.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\electron.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\plasma.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -60,6 +36,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\src\solver.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\electron.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

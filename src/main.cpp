@@ -3,7 +3,7 @@
 int main()
 {
 	//init electrons on the hypersphere(electrons number, dimension, device)
-	thomson::plasma<double> pls = thomson::plasma<double>(470, 3, -1);
+	thomson::plasma<double> pls = thomson::plasma<double>(470, 3, 0);
 	//init solver with default parameters
 	thomson::solver<double> tps = thomson::solver<double>();
 	//set solving parameters

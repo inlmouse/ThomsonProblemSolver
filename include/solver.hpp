@@ -1,7 +1,7 @@
 //#pragma once
 #ifndef _SOLVER_HPP_
 #define _SOLVER_HPP_
-#include "timer.hpp"
+#include <glasssix\timer.hpp>
 #include "plasma.hpp"
 
 #define PropertyBuilderByName(type, name, access_permission)\

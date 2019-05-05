@@ -74,7 +74,11 @@ namespace thomson
 	{
 		if (device_>=0)
 		{
+#ifdef USE_CUDA
 			calculate_all_force_gpu();
+#else
+			NO_GPU;
+#endif
 		}
 		else
 		{
@@ -87,7 +91,11 @@ namespace thomson
 	{
 		if (device_ >= 0)
 		{
+#ifdef USE_CUDA
 			update_all_position_gpu(lr);
+#else
+			NO_GPU;
+#endif
 		}
 		else
 		{
@@ -100,7 +108,11 @@ namespace thomson
 	{
 		if (device_ >= 0)
 		{
+#ifdef USE_CUDA
 			return calculate_potential_energy_gpu();
+#else
+			NO_GPU;
+#endif
 		}
 		else
 		{
