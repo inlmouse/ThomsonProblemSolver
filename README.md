@@ -30,6 +30,7 @@ This solver is very easy to use.
 ## Speed Performance
 - *float* datatype cannot meet the accuracy requirements, all experiments are done on *double*.
 - As we know, the double-precision floating point capability on NVIDIA GTX series sucks, we got even worse results in samll cases.
+
 | Device | Number of Electrons | Dimension |   Time Cost pre Iter   |
 | :-------: | :-------:| :------: | :------: |
 | Intel i7-8700K | 470 | 3 | 7.27ms |
