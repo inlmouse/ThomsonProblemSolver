@@ -13,15 +13,15 @@ namespace thomson
 		display_interval_ = 50;
 		base_lr_ = (Dtype)1.0;
 		profiler = glasssix::Profiler::Get();
-		//profiler->TurnON();
+		profiler->TurnON();
 	}
 
 	template <typename Dtype>
 	solver<Dtype>::~solver()
 	{
-		/*profiler->TurnOFF();
+		profiler->TurnOFF();
 		std::string filename = "tps.json";
-		profiler->DumpProfile(filename.c_str());*/
+		profiler->DumpProfile(filename.c_str());
 	}
 
 	template <typename Dtype>
@@ -47,12 +47,12 @@ namespace thomson
 		Dtype lr = base_lr_;
 		while (counter < max_iter_)
 		{
-			//profiler->ScopeStart("Forward");
+			profiler->ScopeStart("Forward");
 			pls.Forward();
-			/*profiler->ScopeEnd();
-			profiler->ScopeStart("Backward");*/
+			profiler->ScopeEnd();
+			profiler->ScopeStart("Backward");
 			pls.Backward(lr);
-			//profiler->ScopeEnd();
+			profiler->ScopeEnd();
 			
 			Dtype temp_E;
 			temp_E = pls.CalculatePotentialEnergy();

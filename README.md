@@ -6,6 +6,9 @@ This repo is a simple solver for n(n>=2) dimension [Thomson Problem](https://en.
 - OpenBLAS/Intel MKL
 - optional: CUDA/cuBLAS
 
+## Update
+We optimized the implementation on CPU and fixed bugs on GPU. It works 20 times faster than the code before.
+
 ## Usage
 This solver is very easy to use.
 
@@ -23,6 +26,16 @@ This solver is very easy to use.
 	//solving start
 	tps.Solve_Thomson_Problem(pls);
 
+
+## Speed Performance
+- *float* datatype cannot meet the accuracy requirements, all experiments are done on *double*.
+- As we know, the double-precision floating point capability on NVIDIA GTX series sucks, we got even worse results in samll cases.
+| Device | Number of Electrons | Dimension |   Time Cost pre Iter   |
+| :-------: | :-------:| :------: | :------: |
+| Intel i7-8700K | 470 | 3 | 7.27ms |
+| NVIDIA GTX 1060 | 470 | 3 | 7.84ms |
+| Intel i7-8700K | 10572 | 512 | 162816ms |
+| NVIDIA GTX 1060 | 10572 | 512 | 82771ms |
 
 ## Error Analysis
 ### 2 and 3 Dimension Case
@@ -52,5 +65,5 @@ $$C(n)=\sqrt{\pi}\frac{\Gamma(\frac{n-1}{2})}{\Gamma(\frac{n}{2})}$$
 
 
 ## Known Issues
-- The GPU code should be completely rewritten. Now, with irrational structural design, GPU code even slower than CPU :( ...
+- ~~The GPU code should be completely rewritten. Now, with irrational structural design, GPU code even slower than CPU :( ...~~
 - Some fast algorithms caused a certain degree of numerical precision error;

@@ -34,7 +34,7 @@ namespace thomson
 #endif
 		}
 		profiler = glasssix::Profiler::Get();
-		profiler->TurnON();
+		//profiler->TurnON();
 	}
 
 	template <typename Dtype>
@@ -58,8 +58,8 @@ namespace thomson
 			NO_GPU;
 #endif
 		}
-		profiler->TurnOFF();
-		profiler->DumpProfile("details.json");
+		/*profiler->TurnOFF();
+		profiler->DumpProfile("details.json");*/
 	}
 
 	template<typename Dtype>
