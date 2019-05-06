@@ -118,18 +118,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\electron.hpp" />
     <ClInclude Include="..\include\plasma.hpp" />
     <ClInclude Include="..\include\solver.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\electron.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\plasma.cpp" />
     <ClCompile Include="..\src\solver.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <CudaCompile Include="..\src\electron.cu" />
     <CudaCompile Include="..\src\plasma.cu" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

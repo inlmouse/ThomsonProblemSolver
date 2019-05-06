@@ -12,6 +12,16 @@ namespace thomson
 		fast_pe_calculation = true;
 		display_interval_ = 50;
 		base_lr_ = (Dtype)1.0;
+		profiler = glasssix::Profiler::Get();
+		//profiler->TurnON();
+	}
+
+	template <typename Dtype>
+	solver<Dtype>::~solver()
+	{
+		/*profiler->TurnOFF();
+		std::string filename = "tps.json";
+		profiler->DumpProfile(filename.c_str());*/
 	}
 
 	template <typename Dtype>
@@ -37,21 +47,16 @@ namespace thomson
 		Dtype lr = base_lr_;
 		while (counter < max_iter_)
 		{
-			pls.CalculateAllForce();
-			pls.UpdateAllPosition(lr);
+			//profiler->ScopeStart("Forward");
+			pls.Forward();
+			/*profiler->ScopeEnd();
+			profiler->ScopeStart("Backward");*/
+			pls.Backward(lr);
+			//profiler->ScopeEnd();
+			
 			Dtype temp_E;
-#ifdef _OPENMP
-			if (fast_pe_calculation)
-			{
-				temp_E = pls.CalculatePotentialEnergy_Parallel();
-			}
-			else
-			{
-				temp_E = pls.CalculatePotentialEnergy();
-			}
-#else
 			temp_E = pls.CalculatePotentialEnergy();
-#endif
+
 			//fast learning rate policy
 			Dtype error = abs(temp_E - pls.GetPE());
 			if (lr_policy_)

@@ -1,7 +1,7 @@
 //#pragma once
 #ifndef _SOLVER_HPP_
 #define _SOLVER_HPP_
-#include <glasssix\timer.hpp>
+#include <glasssix\profiler.hpp>
 #include "plasma.hpp"
 
 #define PropertyBuilderByName(type, name, access_permission)\
@@ -20,6 +20,8 @@ namespace thomson
 	template<typename Dtype>
 	class solver
 	{
+		glasssix::Profiler *profiler;
+
 		PropertyBuilderByName(int, max_iter_, private);
 		PropertyBuilderByName(Dtype, min_pe_error_, private);
 		PropertyBuilderByName(bool, lr_policy_, private);
@@ -28,6 +30,7 @@ namespace thomson
 		PropertyBuilderByName(Dtype, base_lr_, private);
 	public: 
 		solver();
+		~solver();
 
 		void Solve_Thomson_Problem(plasma<Dtype>& pls);
 	};

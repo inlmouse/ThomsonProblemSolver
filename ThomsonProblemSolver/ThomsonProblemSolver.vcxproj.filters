@@ -18,34 +18,25 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\electron.hpp">
+    <ClInclude Include="..\include\solver.hpp">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\plasma.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\solver.hpp">
-      <Filter>include</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\plasma.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\main.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\src\solver.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\electron.cpp">
+    <ClCompile Include="..\src\plasma.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CudaCompile Include="..\src\electron.cu">
-      <Filter>cu</Filter>
-    </CudaCompile>
     <CudaCompile Include="..\src\plasma.cu">
       <Filter>cu</Filter>
     </CudaCompile>
