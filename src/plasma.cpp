@@ -12,6 +12,7 @@ namespace thomson
 		electorn_num_ = e_num;
 		dim_ = dim;
 		device_ = device;
+		CHECK_GE(electorn_num_, dim_);
 		electorns_ = new tensor<Dtype>(std::vector<int>{electorn_num_, dim_, 1, 1}, device_);
 		combine_force_ = new tensor<Dtype>(std::vector<int>{electorn_num_, dim_, 1, 1}, device_);
 		component_force_ = new tensor<Dtype>(std::vector<int>{electorn_num_, dim_, 1, 1}, device_);
@@ -33,13 +34,15 @@ namespace thomson
 			NO_GPU;
 #endif
 		}
-		profiler = glasssix::Profiler::Get();
+		//profiler = glasssix:://profiler::Get();
 		//profiler->TurnON();
 	}
 
 	template <typename Dtype>
 	plasma<Dtype>::~plasma()
 	{
+		Dump_Electorns_To_File("tps_" + std::to_string(electorn_num_) +
+			"_" + std::to_string(dim_) + ".dat");
 		delete electorns_;
 		delete combine_force_;
 		delete component_force_;
@@ -58,8 +61,8 @@ namespace thomson
 			NO_GPU;
 #endif
 		}
-		/*profiler->TurnOFF();
-		profiler->DumpProfile("details.json");*/
+		//profiler->TurnOFF();
+		//profiler->DumpProfile("details.json");
 	}
 
 	template<typename Dtype>
@@ -81,6 +84,24 @@ namespace thomson
 		{
 			multiplier_data[i] = static_cast<Dtype>(1);
 		}
+	}
+
+	template<typename Dtype>
+	void plasma<Dtype>::Init_Electorns_From_File(std::string path)
+	{
+		std::ifstream in_stream;
+		in_stream.open(path.c_str(), std::ifstream::binary);
+		in_stream.read(reinterpret_cast<char*>(electorns_->mutable_cpu_data()), electorns_->count() * sizeof(Dtype));
+		in_stream.close();
+	}
+
+	template<typename Dtype>
+	void plasma<Dtype>::Dump_Electorns_To_File(std::string path)
+	{
+		std::ofstream out_stream;
+		out_stream.open(path.c_str(), std::ofstream::binary);
+		out_stream.write(reinterpret_cast<const char*>(electorns_->cpu_data()), electorns_->count() * sizeof(Dtype));
+		out_stream.close();
 	}
 
 	template<>
@@ -191,12 +212,12 @@ namespace thomson
 			memset(distance_data, 0, distance_->count() * sizeof(float));
 			for (int i = 0; i < electorn_num_; i++)
 			{
-				profiler->ScopeStart("copy");
+				//profiler->ScopeStart("copy");
 				memcpy(component_force_data, position_data, electorn_num_ * dim_ * sizeof(float));
-				profiler->ScopeEnd();
+				//profiler->ScopeEnd();
 				float* combine_force_data_i_ptr = combine_force_data + dim_ * i;
 				const float* position_data_i_ptr = position_data + dim_ * i;
-				profiler->ScopeStart("kernel");
+				//profiler->ScopeStart("kernel");
 #ifdef _OPENMP
 #pragma omp parallel for
 #endif
@@ -215,11 +236,11 @@ namespace thomson
 						memset(component_force_data_j_ptr, 0, dim_ * sizeof(float));
 					}
 				}
-				profiler->ScopeEnd();
-				profiler->ScopeStart("gemv");
+				//profiler->ScopeEnd();
+				//profiler->ScopeStart("gemv");
 				cblas_sgemv(CblasRowMajor, CblasTrans, electorn_num_, dim_, 1.0, component_force_data,
 					dim_, multiplier_data, 1, 0.0, combine_force_data_i_ptr, 1);
-				profiler->ScopeEnd();
+				//profiler->ScopeEnd();
 			}
 		}
 	}
@@ -246,12 +267,12 @@ namespace thomson
 			memset(distance_data, 0, distance_->count() * sizeof(double));
 			for (int i = 0; i < electorn_num_; i++)
 			{
-				profiler->ScopeStart("copy");
+				//profiler->ScopeStart("copy");
 				memcpy(component_force_data, position_data, electorn_num_ * dim_ * sizeof(double));
-				profiler->ScopeEnd();
+				//profiler->ScopeEnd();
 				double* combine_force_data_i_ptr = combine_force_data + dim_ * i;
 				const double* position_data_i_ptr = position_data + dim_ * i;
-				profiler->ScopeStart("kernel");
+				//profiler->ScopeStart("kernel");
 #ifdef _OPENMP
 #pragma omp parallel for
 #endif
@@ -270,11 +291,11 @@ namespace thomson
 						memset(component_force_data_j_ptr, 0, dim_ * sizeof(double));
 					}
 				}
-				profiler->ScopeEnd();
-				profiler->ScopeStart("gemv");
+				//profiler->ScopeEnd();
+				//profiler->ScopeStart("gemv");
 				cblas_dgemv(CblasRowMajor, CblasTrans, electorn_num_, dim_, 1.0, component_force_data,
 					dim_, multiplier_data, 1, 0.0, combine_force_data_i_ptr, 1);
-				profiler->ScopeEnd();
+				//profiler->ScopeEnd();
 			}
 		}
 	}

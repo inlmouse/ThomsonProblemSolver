@@ -12,21 +12,22 @@ namespace thomson
 		fast_pe_calculation = true;
 		display_interval_ = 50;
 		base_lr_ = (Dtype)1.0;
-		profiler = glasssix::Profiler::Get();
-		profiler->TurnON();
+		//profiler = glasssix:://profiler::Get();
+		//profiler->TurnON();
 	}
 
 	template <typename Dtype>
 	solver<Dtype>::~solver()
 	{
-		profiler->TurnOFF();
+		//profiler->TurnOFF();
 		std::string filename = "tps.json";
-		profiler->DumpProfile(filename.c_str());
+		//profiler->DumpProfile(filename.c_str());
 	}
 
 	template <typename Dtype>
 	void solver<Dtype>::Solve_Thomson_Problem(plasma<Dtype>& pls)
 	{
+		CHECK_GE(base_lr_, 0);
 		int num_thread;
 #ifdef _OPENMP
 		num_thread = omp_get_num_procs();
@@ -47,12 +48,12 @@ namespace thomson
 		Dtype lr = base_lr_;
 		while (counter < max_iter_)
 		{
-			profiler->ScopeStart("Forward");
+			//profiler->ScopeStart("Forward");
 			pls.Forward();
-			profiler->ScopeEnd();
-			profiler->ScopeStart("Backward");
+			//profiler->ScopeEnd();
+			//profiler->ScopeStart("Backward");
 			pls.Backward(lr);
-			profiler->ScopeEnd();
+			//profiler->ScopeEnd();
 			
 			Dtype temp_E;
 			temp_E = pls.CalculatePotentialEnergy();

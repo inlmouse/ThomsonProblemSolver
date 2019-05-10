@@ -47,9 +47,9 @@ namespace thomson
 
 		void Random_Init_Electorns();
 
-		void Init_Electorns_From_File(std::string path){};
+		void Init_Electorns_From_File(std::string path);
 
-		void Dump_Electorns_To_File(std::string path){};
+		void Dump_Electorns_To_File(std::string path);
 
 		void Forward();
 		void Backward(Dtype lr);

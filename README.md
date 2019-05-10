@@ -37,6 +37,8 @@ This solver is very easy to use.
 | NVIDIA GTX 1060 | 470 | 3 | 7.84ms |
 | Intel i7-8700K | 10572 | 512 | 162816ms |
 | NVIDIA GTX 1060 | 10572 | 512 | 82771ms |
+| Intel Xeon E5-2673 v4 | 10572 | 512 | 193797ms |
+| NVIDIA TESLA V100 | 10572 | 512 | 13812ms |
 
 ## Error Analysis
 ### 2 and 3 Dimension Case
