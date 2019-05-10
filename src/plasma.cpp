@@ -42,7 +42,7 @@ namespace thomson
 	plasma<Dtype>::~plasma()
 	{
 		Dump_Electorns_To_File("tps_" + std::to_string(electorn_num_) +
-			"_" + std::to_string(dim_) + ".dat");
+			"_" + std::to_string(dim_) + "_" + typeid(Dtype).name() + ".dat");
 		delete electorns_;
 		delete combine_force_;
 		delete component_force_;

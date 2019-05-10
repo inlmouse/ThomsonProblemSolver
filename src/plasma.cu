@@ -135,21 +135,21 @@ namespace thomson
 		const float beta = 0.0;
 		for (int i = 0; i < electorn_num_; i++)
 		{
-			profiler->ScopeStart("copy");
+			//profiler->ScopeStart("copy");
 			CUDA_CHECK(cudaMemcpy(component_force_data, position_data, electorn_num_ * dim_ * sizeof(float),
 				cudaMemcpyKind::cudaMemcpyDefault));
-			profiler->ScopeEnd();
+			//profiler->ScopeEnd();
 			float* combine_force_data_i_ptr = combine_force_data + dim_ * i;
 			const float* position_data_i_ptr = position_data + dim_ * i;
-			profiler->ScopeStart("kernel");
+			//profiler->ScopeStart("kernel");
 			calccombineforce_kernel << <glasssix::excalibur::CUDA_GET_BLOCKS(electorn_num_), glasssix::excalibur::CUDA_NUM_THREADS >> >
 				(electorn_num_, dim_, i, position_data_i_ptr, component_force_data, distance_data);
 			CUDA_POST_KERNEL_CHECK;
-			profiler->ScopeEnd();
-			profiler->ScopeStart("gemv");
+			//profiler->ScopeEnd();
+			//profiler->ScopeStart("gemv");
 			CUBLAS_CHECK(cublasSgemv(cublas_handle_, cublasOperation_t::CUBLAS_OP_N, dim_, electorn_num_, &alpha,
 				component_force_data, dim_, multiplier_data, 1, &beta, combine_force_data_i_ptr, 1));
-			profiler->ScopeEnd();
+			//profiler->ScopeEnd();
 		}
 	}
 
@@ -163,23 +163,23 @@ namespace thomson
 		const double beta = 0.0;
 		for (int i = 0; i < electorn_num_; i++)
 		{
-			profiler->ScopeStart("copy");
+			//profiler->ScopeStart("copy");
 			CUDA_CHECK(cudaMemcpy(component_force_data, position_data, electorn_num_ * dim_ * sizeof(double),
 				cudaMemcpyKind::cudaMemcpyDefault));
-			profiler->ScopeEnd();
+			//profiler->ScopeEnd();
 			double* combine_force_data_i_ptr = combine_force_data + dim_ * i;
 			const double* position_data_i_ptr = position_data + dim_ * i;
-			profiler->ScopeStart("kernel");
+			//profiler->ScopeStart("kernel");
 			calccombineforce_kernel << <glasssix::excalibur::CUDA_GET_BLOCKS(electorn_num_), glasssix::excalibur::CUDA_NUM_THREADS >> >
 				(electorn_num_, dim_, i, position_data_i_ptr, component_force_data, distance_data);
 			CUDA_POST_KERNEL_CHECK;
-			profiler->ScopeEnd();
-			profiler->ScopeStart("gemv");
+			//profiler->ScopeEnd();
+			//profiler->ScopeStart("gemv");
 			CUBLAS_CHECK(cublasDgemv(cublas_handle_, cublasOperation_t::CUBLAS_OP_N, dim_, electorn_num_, &alpha,
 				component_force_data, dim_, multiplier_data, 1, &beta, combine_force_data_i_ptr, 1));
 			/*gemv_kernel << <glasssix::excalibur::CUDA_GET_BLOCKS(electorn_num_), glasssix::excalibur::CUDA_NUM_THREADS >> >
 				(electorn_num_, dim_, component_force_data, combine_force_data_i_ptr);*/
-			profiler->ScopeEnd();
+			//profiler->ScopeEnd();
 		}
 	}
 #endif
