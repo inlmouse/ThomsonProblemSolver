@@ -20,7 +20,13 @@ namespace thomson
 	template<typename Dtype>
 	class solver
 	{
-		glasssix::Profiler *profiler;
+		//glasssix::Profiler *profiler;
+		plasma<Dtype> *pls_;
+
+		int electorn_num_;
+		int dim_;
+		int device_;
+
 
 		PropertyBuilderByName(int, max_iter_, private);
 		PropertyBuilderByName(Dtype, min_pe_error_, private);
@@ -28,11 +34,15 @@ namespace thomson
 		PropertyBuilderByName(bool, fast_pe_calculation, private);
 		PropertyBuilderByName(int, display_interval_, private);
 		PropertyBuilderByName(Dtype, base_lr_, private);
-	public: 
-		solver();
+		PropertyBuilderByName(int, snapshot_interval_, private);
+	public:
+		solver() = delete;
+		solver(int e_num, int dim, int device);
 		~solver();
 
-		void Solve_Thomson_Problem(plasma<Dtype>& pls);
+		void Random_Init_Electorns();
+		void Init_Electorns_From_File(std::string path);
+		void Solve_Thomson_Problem();
 	};
 }
 
