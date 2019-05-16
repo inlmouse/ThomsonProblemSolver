@@ -87,10 +87,16 @@ namespace thomson
 	template<typename Dtype>
 	void plasma<Dtype>::Init_Electorns_From_File(std::string path)
 	{
+		memset(combine_force_->mutable_cpu_data(), 0, combine_force_->count() * sizeof(Dtype));
 		std::ifstream in_stream;
 		in_stream.open(path.c_str(), std::ifstream::binary);
 		in_stream.read(reinterpret_cast<char*>(electorns_->mutable_cpu_data()), electorns_->count() * sizeof(Dtype));
 		in_stream.close();
+		Dtype* multiplier_data = multiplier_->mutable_cpu_data();
+		for (int i = 0; i < multiplier_->count(); i++)
+		{
+			multiplier_data[i] = static_cast<Dtype>(1);
+		}
 	}
 
 	template<typename Dtype>
